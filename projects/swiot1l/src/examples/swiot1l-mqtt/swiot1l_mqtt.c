@@ -206,7 +206,7 @@ int swiot1l_mqtt()
 	};
 
 
-	tcp_ip.secure_init_param = &secure_params;
+	// tcp_ip.secure_init_param = &secure_params;
 
 	ret = socket_init(&tcp_socket, &tcp_ip);
 	printf("Ta me anseo tar eis an initialisation function");
