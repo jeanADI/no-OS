@@ -81,6 +81,9 @@ extern struct max_spi_init_param adxl355_spi_extra_ip;
 #define GPIO_IRQ_OPS            &max_gpio_irq_ops
 #define GPIO_IRQ_EXTRA          NULL
 
+#define SCAN_SENSOR_TIME	5000
+#define MBEDTLS_THREADING_C
+
 #ifndef DISABLE_SECURE_SOCKET
 /* Populate here your CA certificate content */
 #define CA_CERT                                                             \

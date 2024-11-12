@@ -185,6 +185,7 @@ int swiot1l_mqtt()
 		.max_buff_size = 0,
 
 	};
+	
 	char my_ca_cert[] = CA_CERT;
 	char my_cli_cert[] = DEVICE_CERT;
 	char my_cli_pk[] = DEVICE_PRIVATE_KEY;
@@ -208,7 +209,7 @@ int swiot1l_mqtt()
 	tcp_ip.secure_init_param = &secure_params;
 
 	ret = socket_init(&tcp_socket, &tcp_ip);
-	printf("Ta me anseo tar eis an initialisation function");
+	printf("Ta me anseo tar eis an initialisation function\n");
 	if (ret) {
 		pr_err("Socket init error: %d (%s)\n", ret, strerror(-ret));
 		goto free_ad74413r;
@@ -350,6 +351,22 @@ int swiot1l_mqtt()
 		ret = mqtt_publish(mqtt, "adt75/temperature", &test_msg);
 
 		no_os_mdelay(1000);
+	}
+	
+
+	printf("\nsubscribing \n");
+	ret = mqtt_subscribe(mqtt, "test", MQTT_QOS0, NULL);
+	if (ret) {
+		// pr_err("Error mqtt_subscribe!\n");
+		goto free_mqtt;
+	}
+
+	pr_info("Subscribed to topic: %s\n", "test");
+
+	ret = mqtt_yield(mqtt, 50000);
+	if (ret) {
+		pr_err("Error mqtt_yield!\n");
+		goto free_mqtt;
 	}
 
 	return 0;
