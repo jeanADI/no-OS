@@ -41,6 +41,7 @@
 
 #include "network_interface.h"
 #ifndef DISABLE_SECURE_SOCKET
+//TODO this shouldn't be absolute path
 #include "mbedtls/ssl.h"
 #endif
 #include <stdint.h>
@@ -62,7 +63,7 @@ struct tcp_socket_desc {
 #endif /* DISABLE_SECURE_SOCKET */
 };
 
-#ifndef DISABLE_SECURE_SOCKET
+// #ifndef DISABLE_SECURE_SOCKET
 /**
  * @struct stcp_socket_init_param
  * @brief Parameter to initialize a TCP Socket
@@ -105,7 +106,7 @@ struct secure_init_param {
 	uint32_t		cli_pk_len;
 };
 
-#endif /* DISABLE_SECURE_SOCKET */
+// #endif /* DISABLE_SECURE_SOCKET */
 
 /**
  * @struct tcp_socket_init_param

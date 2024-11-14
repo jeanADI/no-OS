@@ -41,10 +41,10 @@
 #include "tcp_socket.h"
 #include "no_os_util.h"
 #include "no_os_alloc.h"
+#include "no_os_trng.h"
 
 #ifndef DISABLE_SECURE_SOCKET
 #include "noos_mbedtls_config.h"
-#include "no_os_trng.h"
 #endif /* DISABLE_SECURE_SOCKET */
 
 /******************************************************************************/
@@ -141,16 +141,20 @@ static int32_t stcp_socket_init(struct secure_socket_desc **desc,
 
 	if (!desc || !param)
 		return -1;
-
 	ldesc = (typeof(ldesc))no_os_calloc(1, sizeof(*ldesc));
-	if (!ldesc)
+	// ldesc = (struct secure_socket_desc *)no_os_calloc(1, sizeof(*ldesc));
+	if (ldesc == NULL)
 		return -1;
-
-	/* Initialize structures */
+	printf(&ldesc);
+	// /* Initialize structures */
 	mbedtls_ssl_config_init(&ldesc->conf);
+	printf("sslconfig\n");
 	mbedtls_x509_crt_init(&ldesc->cacert);
+	printf("cacert\n");
 	mbedtls_x509_crt_init(&ldesc->clicert);
+	printf("clicert\n");
 	mbedtls_pk_init(&ldesc->pkey);
+	printf("pkey\n");
 	mbedtls_ssl_init(&ldesc->ssl);
 
 	ret = no_os_trng_init(&ldesc->trng, param->trng_init_param);
@@ -158,6 +162,7 @@ static int32_t stcp_socket_init(struct secure_socket_desc **desc,
 		ldesc->trng = NULL;
 		goto exit;
 	}
+
 
 	/* Set default configuration: TLS client socket */
 	ret = mbedtls_ssl_config_defaults(&ldesc->conf,
@@ -187,7 +192,6 @@ static int32_t stcp_socket_init(struct secure_socket_desc **desc,
 		mbedtls_ssl_conf_authmode(&ldesc->conf,
 					  MBEDTLS_SSL_VERIFY_NONE);
 	}
-
 	if (param->cli_cert) {
 		if (!param->cli_pk) {
 			ret = -EINVAL;
@@ -235,7 +239,6 @@ static int32_t stcp_socket_init(struct secure_socket_desc **desc,
 			    (mbedtls_ssl_recv_t *)tls_net_recv, NULL);
 
 	*desc = ldesc;
-
 	return 0;
 
 exit:
@@ -262,31 +265,29 @@ int32_t socket_init(struct tcp_socket_desc **desc,
 
 	if (!desc || !param)
 		return -1;
-
 	ldesc = (typeof(ldesc))no_os_calloc(1, sizeof(*ldesc));
 	if (!ldesc)
 		return -1;
-
 	ldesc->net = param->net;
-
 	if (param->max_buff_size != 0)
 		buff_size = param->max_buff_size;
 	else
 		buff_size = DEFAULT_CONNECTION_BUFFER_SIZE;
 
 	ret = ldesc->net->socket_open(ldesc->net->net, &ldesc->id, PROTOCOL_TCP,
-				      buff_size);
+				      buff_size);	  
 	if (NO_OS_IS_ERR_VALUE(ret)) {
 		no_os_free(ldesc);
 		return ret;
 	}
 
 #ifndef DISABLE_SECURE_SOCKET
-	if (!param->secure_init_param)
+	if (!param->secure_init_param){
 		ldesc->secure = NULL;
-	else
+	}
+	else{
 		ret = stcp_socket_init(&ldesc->secure, ldesc,
-				       param->secure_init_param);
+				       param->secure_init_param);}
 	if (NO_OS_IS_ERR_VALUE(ret)) {
 		ldesc->net->socket_close(ldesc->net->net, ldesc->id);
 		no_os_free(ldesc);

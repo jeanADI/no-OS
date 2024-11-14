@@ -56,6 +56,8 @@
 #define SPI_CS          0
 #define SPI_OPS         &max_spi_ops
 #define SPI_EXTRA       &adin1110_spi_extra_ip
+#define SPI1_EXTRA       &adxl355_spi_extra_ip
+
 
 #define I2C_EXTRA	&vddioh_i2c_extra
 #define GPIO_EXTRA	&vddioh_gpio_extra
@@ -64,6 +66,7 @@ extern struct max_uart_init_param adin1110_uart_extra_ip;
 extern struct max_spi_init_param adin1110_spi_extra_ip;
 extern struct max_i2c_init_param vddioh_i2c_extra;
 extern struct max_gpio_init_param vddioh_gpio_extra;
+extern struct max_spi_init_param adxl355_spi_extra_ip; 
 
 #define AD74413R_GPIO_TRIG_IRQ_ID     22
 #define AD74413R_GPIO_CB_HANDLE       NULL
@@ -71,5 +74,53 @@ extern struct max_gpio_init_param vddioh_gpio_extra;
 #define GPIO_IRQ_ID             1 /* Pin 0 */
 #define GPIO_IRQ_OPS            &max_gpio_irq_ops
 #define GPIO_IRQ_EXTRA          NULL
+
+#define SCAN_SENSOR_TIME	5000
+#define MBEDTLS_THREADING_C
+
+#ifndef DISABLE_SECURE_SOCKET
+/* Populate here your CA certificate content */
+#define CA_CERT                                                             \
+    "-----BEGIN CERTIFICATE-----\n"                                       \
+    "MIICGTCCAb+gAwIBAgIUfUilbMM2CLs3W2DzTLc334CISgUwCgYIKoZIzj0EAwIw\r\n"  \
+    "YjELMAkGA1UEBhMCQVUxCzAJBgNVBAgMAkFBMQswCQYDVQQHDAJCQjEMMAoGA1UE\r\n"  \
+    "CgwDQURJMQswCQYDVQQLDAJDQzELMAkGA1UEAwwCREQxETAPBgkqhkiG9w0BCQEW\r\n"  \
+    "AkVFMB4XDTI0MTAyNDExMDYxOFoXDTM0MTAyMjExMDYxOFowYjELMAkGA1UEBhMC\r\n"  \
+    "QVUxCzAJBgNVBAgMAkFBMQswCQYDVQQHDAJCQjEMMAoGA1UECgwDQURJMQswCQYD\r\n"  \
+    "VQQLDAJDQzELMAkGA1UEAwwCREQxETAPBgkqhkiG9w0BCQEWAkVFMFkwEwYHKoZI\r\n"  \
+    "zj0CAQYIKoZIzj0DAQcDQgAEdmQy9SlQrHP+2bAoGXJREWDD35QAQxR/zHZimxJ+\r\n"  \
+    "fILRTt/CGIuo4CUTX4cRByCnOz7VUD71Sxbx6oZaycLtnaNTMFEwHQYDVR0OBBYE\r\n"  \
+    "FAFaULsdIF3XDldeIrLANi9M/SYlMB8GA1UdIwQYMBaAFAFaULsdIF3XDldeIrLA\r\n"  \
+    "Ni9M/SYlMA8GA1UdEwEB/wQFMAMBAf8wCgYIKoZIzj0EAwIDSAAwRQIhAKcZuIPt\r\n"  \
+    "+xp97vfHl94n4jp8ejb/8KispWj66OKwGf52AiA7Qpts04IkPNbDfFcfsAGZORYy\r\n"  \
+    "jgrJ7IyKvBu3h+RNVg==\r\n"  \
+    "-----END CERTIFICATE-----\r\n";
+
+/* Populate here your device certificate content */
+#define DEVICE_CERT                                                        \
+    "-----BEGIN CERTIFICATE-----\n"                                            \
+    "MIICEjCCAbegAwIBAgIUK/zCtY0zFeo75Ih51lgMcV+T0f0wCgYIKoZIzj0EAwIw\r\n"  \
+    "YjELMAkGA1UEBhMCQVUxCzAJBgNVBAgMAkFBMQswCQYDVQQHDAJCQjEMMAoGA1UE\r\n"  \
+    "CgwDQURJMQswCQYDVQQLDAJDQzELMAkGA1UEAwwCREQxETAPBgkqhkiG9w0BCQEW\r\n"  \
+    "AkVFMB4XDTI0MTAyNDExMDk0OVoXDTI1MTAyNDExMDk0OVowazELMAkGA1UEBhMC\r\n"  \
+    "TEwxCzAJBgNVBAgMAk1NMQswCQYDVQQHDAJOTjELMAkGA1UECgwCT08xCzAJBgNV\r\n"  \
+    "BAsMAlBQMRUwEwYDVQQDDAwxOTIuMTY4LjAuODAxETAPBgkqhkiG9w0BCQEWAlBQ\r\n"  \
+    "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEBDJAVCLqAtZoI/S1Yq3HYYXfgPYc\r\n"  \
+    "jVPNz1nW4wa/CoEd0iMQggA5eoJ/ZYjpRb0irQ6wXMtyNSq/D+gF9hBl4KNCMEAw\r\n"  \
+    "HQYDVR0OBBYEFGFTeTvNQUSlQ/dN+AELzLSToBnCMB8GA1UdIwQYMBaAFAFaULsd\r\n"  \
+    "IF3XDldeIrLANi9M/SYlMAoGCCqGSM49BAMCA0kAMEYCIQD5/l3uibkt+4h2FRCH\r\n"  \
+    "kUJw6+DrUocBsPSTNW6IXjpmRQIhAO+E+LxgmM2uSH9ovxssm9eUECHb/YTj1AxN\r\n"  \
+    "MoRSGDYf\r\n"  \
+    "-----END CERTIFICATE-----\r\n";
+
+/* Populate here your device private key content */
+#define DEVICE_PRIVATE_KEY                                                 \
+    "-----BEGIN EC PRIVATE KEY-----\n"                                     \
+    "MHcCAQEEIL8dt3Q3X3PLyFYKl5ZGC7QefyDpT5ZmDO3q0UvkpzO+oAoGCCqGSM49\r\n"  \
+    "AwEHoUQDQgAEBDJAVCLqAtZoI/S1Yq3HYYXfgPYcjVPNz1nW4wa/CoEd0iMQggA5\r\n"  \
+    "eoJ/ZYjpRb0irQ6wXMtyNSq/D+gF9hBl4A==\r\n"  \
+    "-----END EC PRIVATE KEY-----\r\n";
+
+#endif
 
 #endif /* __PARAMETERS_H__ */
