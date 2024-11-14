@@ -61,12 +61,27 @@ INERTIAL MEASUREMENT UNITS
 
    drivers/imu
 
+LED
+===
+.. toctree::
+   :maxdepth: 1
+
+   drivers/max25603
+
 RF TRANSCEIVER
 ==============
 .. toctree::
    :maxdepth: 1
 
    drivers/madura
+
+TEMPERATURE
+==============
+.. toctree::
+   :maxdepth: 1
+
+   drivers/max31827
+   drivers/ltc2983
 
 POWER MANAGEMENT
 ================
@@ -78,3 +93,4 @@ POWER MANAGEMENT
    drivers/ltc4296
    drivers/lt7182s
    drivers/lt8722
+   drivers/max42500

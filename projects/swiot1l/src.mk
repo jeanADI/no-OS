@@ -120,8 +120,9 @@ INCS += $(NO-OS)/libraries/mbedtls/include/mbedtls/ssl.h
 SRC_DIRS += $(NO-OS)/libraries/mbedtls/library
 
 
-
 CFLAGS += -DSWIOT1L_MQTT_EXAMPLE
+CFLAGS += -DNO_OS_LWIP_NETWORKING
+
 LIBRARIES += mqtt
 SRCS += $(PROJECT)/src/examples/swiot1l-mqtt/swiot1l_mqtt.c
 INCS += $(PROJECT)/src/examples/swiot1l-mqtt/swiot1l_mqtt.h

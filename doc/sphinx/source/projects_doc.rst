@@ -72,6 +72,7 @@ POWER MANAGEMENT
    projects/ltc4296
    projects/lt7182s
    projects/lt8722
+   projects/max42500
 
 DAC
 ===
@@ -79,3 +80,11 @@ DAC
    :maxdepth: 1
 
    projects/max2201x
+
+TEMPERATURE
+==============
+.. toctree::
+   :maxdepth: 1
+
+   projects/max31827-evkit
+   projects/ltc2983

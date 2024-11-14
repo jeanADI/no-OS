@@ -1,10 +1,8 @@
-/* SPDX-License-Identifier: GPL-2.0 */
-/*
+/*/*
  * ADRV9025
  *
  * Copyright 2020-2023 Analog Devices Inc.
  *
- * Licensed under the GPL-2.
  */
 
 #ifndef IIO_TRX_ADRV9025_H_
@@ -76,7 +74,6 @@ enum adrv9025_clocks {
 #define ADRV9025_MAX_NUM_GAIN_TABLES 10
 
 struct adrv9025_rf_phy {
-	struct no_os_spi_desc		*spi_desc;
 	adi_adrv9025_Device_t		adi_adrv9025_device;
 	adi_adrv9025_Device_t		*madDevice;
 	adi_adrv9025_SpiSettings_t	spiSettings;

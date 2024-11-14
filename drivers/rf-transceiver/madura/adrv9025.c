@@ -1,10 +1,8 @@
-// SPDX-License-Identifier: GPL-2.0
 /*
  * ADRV9025/6 RF Transceiver
  *
  * Copyright 2020-2023 Analog Devices Inc.
  *
- * Licensed under the GPL-2.
  */
 
 #include "xilinx_transceiver.h"
@@ -104,7 +102,7 @@ static int __adrv9025_dev_err(struct adrv9025_rf_phy *phy, const char *function,
 
 #define adrv9025_dev_err(phy) __adrv9025_dev_err(phy, __func__, __LINE__)
 
-int adrv9025_spi_read(struct no_os_spi_desc *spi, unsigned int reg)
+int adrv9025_spi_read(struct no_os_spi_desc *spi, uint32_t reg)
 {
 	uint8_t buf[3];
 	int ret;
@@ -124,8 +122,8 @@ int adrv9025_spi_read(struct no_os_spi_desc *spi, unsigned int reg)
 	return buf[2];
 }
 
-int adrv9025_spi_write(struct no_os_spi_desc *spi, unsigned int reg,
-		       unsigned int val)
+int adrv9025_spi_write(struct no_os_spi_desc *spi, uint32_t reg,
+		       uint32_t val)
 {
 	unsigned char buf[3];
 	int ret;
