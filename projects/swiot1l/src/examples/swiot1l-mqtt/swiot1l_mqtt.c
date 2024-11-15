@@ -351,6 +351,22 @@ int swiot1l_mqtt()
 		no_os_mdelay(1000);
 	}
 
+	// ret = mqtt_subscribe(mqtt, "test", MQTT_QOS0, NULL);
+	// if (ret) {
+	// 	pr_err("Error mqtt_subscribe!\n");
+	// 	goto free_mqtt;
+	// }
+	// printf("Subscribed!!");
+	// ret = mqtt_yield(mqtt, 50000);
+	// if (ret) {
+	// 	pr_err("Error mqtt_yield!\n");
+	// 	goto free_mqtt;
+	// }
+
+
+
+
+
 	return 0;
 
 free_mqtt:
