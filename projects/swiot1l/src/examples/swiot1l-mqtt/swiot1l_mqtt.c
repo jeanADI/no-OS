@@ -60,7 +60,7 @@ static void message_handler(struct mqtt_message_data *msg)
 int swiot1l_mqtt()
 {
 
-	uint8_t adin1110_mac_address[6] = {0x00, 0x18, 0x80, 0x03, 0x25, 0x60};
+	uint8_t adin1110_mac_address[6] = {0x00, 0xe0, 0x22, 0x03, 0x25, 0x60};
 	uint8_t send_buff[256];
 	uint8_t read_buff[256];
 	struct ad74413r_decimal val;
@@ -361,6 +361,22 @@ int swiot1l_mqtt()
 		pr_err("Error mqtt_yield!\n");
 		goto free_mqtt;
 	}
+
+	// ret = mqtt_subscribe(mqtt, "test", MQTT_QOS0, NULL);
+	// if (ret) {
+	// 	pr_err("Error mqtt_subscribe!\n");
+	// 	goto free_mqtt;
+	// }
+	// printf("Subscribed!!");
+	// ret = mqtt_yield(mqtt, 50000);
+	// if (ret) {
+	// 	pr_err("Error mqtt_yield!\n");
+	// 	goto free_mqtt;
+	// }
+
+
+
+
 
 	return 0;
 
