@@ -13,3 +13,12 @@
 [submodule "libraries/lwip/lwip"]
 	path = libraries/lwip/lwip
 	url = https://github.com/lwip-tcpip/lwip
+[submodule "libraries/maxq10xx-api"]
+	path = libraries/maxq10xx-api
+	url = bitbucket.analog.com:7999/maxqsdk/maxq10xx-api.git
+[submodule "libraries/maxq10xx-mbedtls"]
+	path = libraries/maxq10xx-mbedtls
+	url = bitbucket.analog.com:7999/maxqsdk/maxq10xx-mbedtls.git
+[submodule "libraries/uss"]
+	path = libraries/uss
+	url = bitbucket.analog.com:7999/secswuss/uss.git
