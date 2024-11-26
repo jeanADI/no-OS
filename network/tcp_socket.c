@@ -42,6 +42,8 @@
 #include "no_os_util.h"
 #include "no_os_alloc.h"
 #include "no_os_trng.h"
+#include "no_os_delay.h"
+
 
 #ifndef DISABLE_SECURE_SOCKET
 #include "noos_mbedtls_config.h"
@@ -125,6 +127,7 @@ static int tls_net_recv(struct tcp_socket_desc *sock, unsigned char *buff,
 		int i = 500;
 		while(i>0){
 		no_os_lwip_step(sock->net->net, NULL);
+		no_os_mdelay(1);
 		i--;
 		}
 	#endif /*NO_OS_LWIP_NETWORKING*/
@@ -373,6 +376,7 @@ int32_t socket_connect(struct tcp_socket_desc *desc,
 		int i = 500;
 		while(i>0){
 		no_os_lwip_step(desc->net->net, NULL);
+		no_os_mdelay(1);
 		i--;
 		}
 	#endif /*NO_OS_LWIP_NETWORKING*/
