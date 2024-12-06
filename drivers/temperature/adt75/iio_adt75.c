@@ -39,7 +39,7 @@
 #include "no_os_alloc.h"
 #include "iio_adt75.h"
 #include "adt75.h"
-#include "iio.h"
+#include "../../../iio/iio.h"
 
 /******************************************************************************/
 /************************ Functions Declarations ******************************/
